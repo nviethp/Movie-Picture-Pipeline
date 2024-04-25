@@ -5,7 +5,7 @@ on:
   # Manual trigger using the workflow_dispatch event
   workflow_dispatch:
   # Automatic trigger on push events to the main branch
-  pupull_request:
+  pull_request:
     branches:
       - main
     paths:

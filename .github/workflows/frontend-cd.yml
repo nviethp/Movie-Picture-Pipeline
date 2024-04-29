@@ -133,14 +133,6 @@ jobs:
         with:
           mask-password: "true"
 
-      - name: Install Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: '>=1.17.0'
-      
-      - name: Install Kustomize
-        run: GO111MODULE=on go install sigs.k8s.io/kustomize/kustomize/v5@latest
-
       - name: Set up kubectl
         uses: azure/setup-kubectl@v3
 
@@ -157,7 +149,7 @@ jobs:
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: frontend
-          IMAGE_TAG: latest
+          IMAGE_TAG: ${{ github.sha }}
         run: |
           kustomize edit set image frontend=$REGISTRY/$REPOSITORY:$IMAGE_TAG
         working-directory: ./starter/frontend/k8s
